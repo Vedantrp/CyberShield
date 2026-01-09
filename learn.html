@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybershield</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
     <nav>
         <a href="index.html">Home</a>
         <a href="dashboard.html">Threat Dashboard</a>
-        <a href="learn.html">Learn More</a>
+        <a href="learn.html">News</a>
         <a href="alerts.html">Alerts</a>
         <a href="report.html">Report</a>
         <a href="#" id="emergency-btn" class="emergency-nav-btn">EMERGENCY ACTION</a>
@@ -29,49 +30,56 @@
                 <!-- Articles will be loaded here dynamically by js/learn.js -->
             </div>
         </section>
-        <footer>We never ask for OTP,PAsswords or money.</footer>
+        <footer id="main-footer">
+            <div
+                style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
+                <p>Cybershield &copy; 2026. Privacy-First & Community Driven.</p>
+                <p>Trusted Sources: <a href="https://www.ic3.gov/" target="_blank"
+                        style="color: var(--accent-primary);">FBI IC3</a> | <a href="https://cybercrime.gov.in/"
+                        target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a
+                        href="https://www.ncsc.gov.uk/" target="_blank" style="color: var(--accent-primary);">NCSC</a>
+                </p>
+            </div>
+        </footer>
 
-        <!-- Emergency Modal -->
+        <!-- Panic Modal Upgrade -->
         <div class="modal-overlay" id="emergency-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>🚨 Emergency Response</h2>
+                    <h2>🚨 PANIC MODE: IMMEDIATE ACTION</h2>
                     <button class="close-modal">&times;</button>
                 </div>
                 <div class="emergency-grid">
                     <div class="emergency-step">
                         <div class="step-icon">🛑</div>
                         <div class="step-content">
-                            <h3>1. Stop All Actions</h3>
-                            <p>Do not click links, download files, or transfer money. Disconnect from the internet if
-                                unsure.</p>
+                            <h3>1. FREEZE ACCOUNTS</h3>
+                            <p>Open your banking app NOW and lock/freeze all cards and accounts immediately.</p>
                         </div>
                     </div>
 
                     <div class="emergency-step">
-                        <div class="step-icon">🏦</div>
+                        <div class="step-icon">📶</div>
                         <div class="step-content">
-                            <h3>2. Contact Bank Immediately</h3>
-                            <p>Call the official fraud number on your card back.</p>
+                            <h3>2. DISCONNECT DEVICE</h3>
+                            <p>Turn off Wi-Fi and Mobile Data to stop any active malware communications.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📞</div>
+                        <div class="step-content">
+                            <h3>3. CALL AUTHORITIES</h3>
+                            <p>Dial <strong>1930</strong> (India) or <strong>IC3</strong> immediately.</p>
                             <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
                         </div>
                     </div>
 
                     <div class="emergency-step">
-                        <div class="step-icon">👮</div>
+                        <div class="step-icon">🔒</div>
                         <div class="step-content">
-                            <h3>3. Report to Cybercrime</h3>
-                            <p>File an official complaint with authorities.</p>
-                            <a href="https://cybercrime.gov.in" target="_blank" class="emergency-btn-action">Open
-                                Portal</a>
-                        </div>
-                    </div>
-
-                    <div class="emergency-step">
-                        <div class="step-icon">📋</div>
-                        <div class="step-content">
-                            <h3>4. Evidence Checklist</h3>
-                            <p>Screenshots, Transaction IDs, Phone Numbers, URLs.</p>
+                            <h3>4. SECURE CREDENTIALS</h3>
+                            <p>Change your critical passwords from a *different* device (e.g., friend's phone).</p>
                         </div>
                     </div>
                 </div>
