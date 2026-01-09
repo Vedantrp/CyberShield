@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybershield - AI Scam Detector</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .scanner-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .scanner-box {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .result-box {
+            display: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: left;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .risk-gauge {
+            width: 100%;
+            height: 10px;
+            background: #333;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gauge-fill {
+            height: 100%;
+            width: 0%;
+            transition: width 1s ease, background-color 0.5s ease;
+        }
+
+        .match-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .verification-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            margin-top: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="scanner.html" class="active">AI Scanner</a>
+            <a href="dashboard.html">Threat Dashboard</a>
+            <a href="verification.html">Deepfake Check</a>
+            <a href="learn.html">News</a>
+            <a href="alerts.html">Alerts</a>
+            <a href="report.html">Report</a>
+            <a href="#" id="emergency-btn" class="emergency-nav-btn">PANIC BUTTON</a>
+        </nav>
+
+        <section class="hero" style="padding: 4rem 1rem;">
+            <h1>AI Scam Detector</h1>
+            <p>Paste suspicious texts, emails, or URLs to analyze them with on-device AI models.</p>
+        </section>
+
+        <section class="scanner-container">
+            <div class="scanner-box">
+                <textarea id="scan-input"
+                    placeholder="Paste the suspicious message, email content, or URL here..."></textarea>
+                <button id="analyze-btn" class="btn btn-primary" style="width: 100%; font-size: 1.2rem;">Analyze
+                    Text</button>
+            </div>
+
+            <div id="result-container" class="result-box">
+                <h2 id="risk-title">Analysis Complete</h2>
+                <div class="risk-gauge">
+                    <div id="risk-bar" class="gauge-fill"></div>
+                </div>
+                <p id="risk-score" style="text-align: right; font-weight: bold; margin-bottom: 1rem;">Risk Score: 0/100
+                </p>
+
+                <h3>Detected Patterns:</h3>
+                <div id="pattern-list" style="margin-bottom: 1.5rem;"></div>
+
+                <div class="analysis-box">
+                    <strong>AI Analysis:</strong>
+                    <p id="ai-explanation"></p>
+                </div>
+
+                <div id="recommendation" style="margin-top: 1.5rem;"></div>
+            </div>
+        </section>
+
+        <footer id="main-footer"></footer>
+
+        <!-- Emergency Modal is dynamically injected by common script or manually added -->
+        <div class="modal-overlay" id="emergency-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🚨 PANIC MODE: IMMEDIATE ACTION</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="emergency-grid">
+                    <div class="emergency-step">
+                        <div class="step-icon">🛑</div>
+                        <div class="step-content">
+                            <h3>1. FREEZE ACCOUNTS</h3>
+                            <p>Open your banking app NOW and lock/freeze all cards and accounts immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📶</div>
+                        <div class="step-content">
+                            <h3>2. DISCONNECT DEVICE</h3>
+                            <p>Turn off Wi-Fi and Mobile Data to stop any active malware communications.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📞</div>
+                        <div class="step-content">
+                            <h3>3. CALL AUTHORITIES</h3>
+                            <p>Dial <strong>1930</strong> (India) or <strong>IC3</strong> immediately.</p>
+                            <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">🔒</div>
+                        <div class="step-content">
+                            <h3>4. SECURE CREDENTIALS</h3>
+                            <p>Change your critical passwords from a *different* device (e.g., friend's phone).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { analyzeScam } from './js/scanner.js';
+
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const input = document.getElementById('scan-input');
+        const resultContainer = document.getElementById('result-container');
+        const riskBar = document.getElementById('risk-bar');
+        const riskTitle = document.getElementById('risk-title');
+        const patternList = document.getElementById('pattern-list');
+        const explanation = document.getElementById('ai-explanation');
+        const recommendation = document.getElementById('recommendation');
+        const scoreDisplay = document.getElementById('risk-score');
+
+        // Auto-Load saved text
+        window.addEventListener('load', () => {
+            const savedText = localStorage.getItem('scannedText');
+            if (savedText) {
+                input.value = savedText;
+            }
+        });
+
+        // Auto-Save text on input
+        input.addEventListener('input', () => {
+            localStorage.setItem('scannedText', input.value);
+        });
+
+        analyzeBtn.addEventListener('click', () => {
+            const text = input.value.trim();
+            if (!text) return;
+
+            const analysis = analyzeScam(text);
+
+            resultContainer.style.display = 'block';
+
+            // Clear previous
+            patternList.innerHTML = '';
+
+            // Update Gauge
+            let percentage = 0;
+            let color = '#00ff00';
+
+            if (analysis.risk === 'HIGH') {
+                percentage = 90;
+                color = '#ff4d4d';
+                riskTitle.textContent = "⚠️ High Risk Detected";
+                riskTitle.style.color = "#ff4d4d";
+            } else if (analysis.risk === 'MEDIUM') {
+                percentage = 60;
+                color = '#ffaa00';
+                riskTitle.textContent = "⚠️ Potential Scam";
+                riskTitle.style.color = "#ffaa00";
+            } else {
+                percentage = 20;
+                color = '#00ff00';
+                riskTitle.textContent = "✅ Low Risk";
+                riskTitle.style.color = "#00ff00";
+            }
+
+            // Animate bar
+            setTimeout(() => {
+                riskBar.style.width = percentage + '%';
+                riskBar.style.backgroundColor = color;
+            }, 100);
+
+            scoreDisplay.textContent = `Risk Score: ${analysis.score}`;
+
+            // Patterns
+            analysis.matches.forEach(m => {
+                const tag = document.createElement('span');
+                tag.className = 'match-tag';
+                tag.innerHTML = `<strong>${m.type}</strong>: "${m.word}"`;
+                tag.style.borderColor = color;
+                patternList.appendChild(tag);
+            });
+
+            if (analysis.matches.length === 0) {
+                patternList.innerHTML = '<em>No known scam signatures detected.</em>';
+            }
+
+            explanation.textContent = analysis.explanation;
+
+            // Recommendation
+            if (analysis.risk !== 'LOW') {
+                recommendation.innerHTML = `
+                    <div style="background: rgba(255,0,0,0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,0,0,0.3);">
+                        <strong>Recommendation:</strong> Do not proceed. This content exhibits clear signs of manipulation. 
+                        Please <a href="report.html" style="color: var(--accent-primary);">Report this</a> immediately.
+                    </div>
+                `;
+            } else {
+                recommendation.innerHTML = `
+                    <div style="background: rgba(0,255,0,0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(0,255,0,0.3);">
+                         <strong>Recommendation:</strong> Looks safe, but always verify the sender independently.
+                    </div>
+                `;
+            }
+        });
+
+        // Emergency Modal Logic (Copy-paste standard)
+        const emergencyBtn = document.getElementById('emergency-btn');
+        const emergencyModal = document.getElementById('emergency-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalOverlay = document.querySelector('.modal-overlay');
+
+        if (emergencyBtn && emergencyModal) {
+            emergencyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                emergencyModal.style.display = 'flex';
+                setTimeout(() => emergencyModal.classList.add('active'), 10);
+            });
+
+            const hideModal = () => {
+                emergencyModal.classList.remove('active');
+                setTimeout(() => emergencyModal.style.display = 'none', 300);
+            };
+
+            closeModal.addEventListener('click', hideModal);
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+        }
+
+    </script>
+    <script src="js/common-footer.js"></script> <!-- Placeholder if we used components -->
+    <script>
+        // Simple footer injection for now
+        const footer = document.getElementById('main-footer');
+        footer.innerHTML = `
+            <div style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
+                <p>Cybershield &copy; 2026. Privacy-First & Community Driven.</p>
+                <p>Trusted Sources: <a href="https://www.ic3.gov/" target="_blank" style="color: var(--accent-primary);">FBI IC3</a> | <a href="https://cybercrime.gov.in/" target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a href="https://www.ncsc.gov.uk/" target="_blank" style="color: var(--accent-primary);">NCSC</a></p>
+            </div>
+         `;
+    </script>
+</body>
+
+</html>

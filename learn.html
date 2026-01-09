@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybershield</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Threat Dashboard</a>
+        <a href="learn.html">Learn More</a>
+        <a href="alerts.html">Alerts</a>
+        <a href="report.html">Report</a>
+        <a href="#" id="emergency-btn" class="emergency-nav-btn">EMERGENCY ACTION</a>
+    </nav>
+    <h1>Learn More</h1>
+    <main>
+        <section class="page-title">
+            <h2>Latest Cybercrime</h2>
+            <p>Updated automatically from trusted news sources</p>
+        </section>
+        <section class="content">
+            <div class="scam-grid" id="articlesContainer">
+                <!-- Articles will be loaded here dynamically by js/learn.js -->
+            </div>
+        </section>
+        <footer>We never ask for OTP,PAsswords or money.</footer>
+
+        <!-- Emergency Modal -->
+        <div class="modal-overlay" id="emergency-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🚨 Emergency Response</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="emergency-grid">
+                    <div class="emergency-step">
+                        <div class="step-icon">🛑</div>
+                        <div class="step-content">
+                            <h3>1. Stop All Actions</h3>
+                            <p>Do not click links, download files, or transfer money. Disconnect from the internet if
+                                unsure.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">🏦</div>
+                        <div class="step-content">
+                            <h3>2. Contact Bank Immediately</h3>
+                            <p>Call the official fraud number on your card back.</p>
+                            <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">👮</div>
+                        <div class="step-content">
+                            <h3>3. Report to Cybercrime</h3>
+                            <p>File an official complaint with authorities.</p>
+                            <a href="https://cybercrime.gov.in" target="_blank" class="emergency-btn-action">Open
+                                Portal</a>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📋</div>
+                        <div class="step-content">
+                            <h3>4. Evidence Checklist</h3>
+                            <p>Screenshots, Transaction IDs, Phone Numbers, URLs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Emergency Modal Logic
+        const emergencyBtn = document.getElementById('emergency-btn');
+        const emergencyModal = document.getElementById('emergency-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalOverlay = document.querySelector('.modal-overlay');
+
+        if (emergencyBtn && emergencyModal) {
+            emergencyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                emergencyModal.style.display = 'flex';
+                setTimeout(() => emergencyModal.classList.add('active'), 10);
+            });
+
+            const hideModal = () => {
+                emergencyModal.classList.remove('active');
+                setTimeout(() => emergencyModal.style.display = 'none', 300);
+            };
+
+            closeModal.addEventListener('click', hideModal);
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+        }
+    </script>
+</body>
+<script type="module" src="js/learn.js"></script>
+
+</html>

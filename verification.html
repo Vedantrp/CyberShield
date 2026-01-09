@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybershield - Deepfake Verification</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .verification-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .verification-card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .check-icon {
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .interactive-tool {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px dashed var(--accent-secondary);
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .challenge-btn {
+            background: linear-gradient(45deg, #bc13fe, #00f3ff);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .challenge-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="scanner.html">AI Scanner</a>
+            <a href="dashboard.html">Threat Dashboard</a>
+            <a href="verification.html" class="active">Deepfake Check</a>
+            <a href="learn.html">News</a>
+            <a href="alerts.html">Alerts</a>
+            <a href="report.html">Report</a>
+            <a href="#" id="emergency-btn" class="emergency-nav-btn">PANIC BUTTON</a>
+        </nav>
+
+        <section class="hero" style="padding: 4rem 1rem;">
+            <h1>Deepfake Verification</h1>
+            <p>Is that really your boss or family member? Use this guide to verify "urgent" voice notes and video calls.
+            </p>
+        </section>
+
+        <section class="content">
+
+            <div class="scam-grid">
+                <article class="verification-card">
+                    <h2>🎥 Video Call Verification</h2>
+                    <p class="text-secondary">AI can swap faces in real-time, but it struggles with physics.</p>
+
+                    <div class="checklist-item">
+                        <div class="check-icon">1</div>
+                        <div>
+                            <h3>The "Hand Wave" Test</h3>
+                            <p>Ask the caller to wave their hand slowly in front of their face. Deepfake algorithms
+                                often glitch when objects pass over the "face mask".</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="check-icon">2</div>
+                        <div>
+                            <h3>Profile Turn</h3>
+                            <p>Ask them to turn their head 90 degrees to the side. 2D-based AI models often fail to
+                                render the side profile or ear correctly.</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="check-icon">3</div>
+                        <div>
+                            <h3>Light Source Consistency</h3>
+                            <p>Check if the lighting on their face matches the background. AI often generates flat or
+                                inconsistent lighting.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="verification-card">
+                    <h2>🗣️ Audio/Voice Verification</h2>
+                    <p class="text-secondary">AI voice clones are common in "kidnapping" or "wire transfer" scams.</p>
+
+                    <div class="checklist-item">
+                        <div class="check-icon">1</div>
+                        <div>
+                            <h3>The "Safe Word" Protocol</h3>
+                            <p>Establish a secret code word with your family/team offline. If they assume urgency but
+                                don't know the word, it's a scam.</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="check-icon">2</div>
+                        <div>
+                            <h3>Emotional Incongruence</h3>
+                            <p>Deepfakes often have a flat tone even when saying "I'm in danger!" Listen for robotic
+                                pauses or lack of breathing sounds.</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="check-icon">3</div>
+                        <div>
+                            <h3>Call Them Back</h3>
+                            <p>Hang up and call their known number. AI scammers usually use VoIP numbers, not the actual
+                                person's line.</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="interactive-tool">
+                <h2>Generate Verification Challenge</h2>
+                <p>Not sure what to ask? Click below to get a unique verification question only a real person could
+                    answer instantly.</p>
+                <div id="challenge-display"
+                    style="margin: 1.5rem; font-size: 1.5rem; font-weight: bold; color: var(--accent-primary); min-height: 2rem;">
+                </div>
+                <button class="challenge-btn" id="gen-challenge">Get Challenge Question</button>
+            </div>
+
+        </section>
+
+        <footer id="main-footer">
+            <div
+                style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
+                <p>Cybershield &copy; 2026. Privacy-First & Community Driven.</p>
+                <p>Trusted Sources: <a href="https://www.ic3.gov/" target="_blank"
+                        style="color: var(--accent-primary);">FBI IC3</a> | <a href="https://cybercrime.gov.in/"
+                        target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a
+                        href="https://www.ncsc.gov.uk/" target="_blank" style="color: var(--accent-primary);">NCSC</a>
+                </p>
+            </div>
+        </footer>
+
+        <!-- Panic Modal Upgrade -->
+        <div class="modal-overlay" id="emergency-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🚨 PANIC MODE: IMMEDIATE ACTION</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="emergency-grid">
+                    <div class="emergency-step">
+                        <div class="step-icon">🛑</div>
+                        <div class="step-content">
+                            <h3>1. FREEZE ACCOUNTS</h3>
+                            <p>Open your banking app NOW and lock/freeze all cards and accounts immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📶</div>
+                        <div class="step-content">
+                            <h3>2. DISCONNECT DEVICE</h3>
+                            <p>Turn off Wi-Fi and Mobile Data to stop any active malware communications.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📞</div>
+                        <div class="step-content">
+                            <h3>3. CALL AUTHORITIES</h3>
+                            <p>Dial <strong>1930</strong> (India) or <strong>IC3</strong> immediately.</p>
+                            <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">🔒</div>
+                        <div class="step-content">
+                            <h3>4. SECURE CREDENTIALS</h3>
+                            <p>Change your critical passwords from a *different* device (e.g., friend's phone).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        // Challenge Generator
+        const challenges = [
+            "Ask them: 'What is the last meal we ate together?'",
+            "Ask them: 'What color is the wall in my room?'",
+            "Ask them to recount a specific shared memory from childhood.",
+            "Ask them to sing a specific song line poorly.",
+            "Ask them: 'Who is the person you hate the most?' (Unexpected emotion test)"
+        ];
+
+        document.getElementById('gen-challenge').addEventListener('click', () => {
+            const random = challenges[Math.floor(Math.random() * challenges.length)];
+            const display = document.getElementById('challenge-display');
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.textContent = random;
+                display.style.opacity = 1;
+            }, 200);
+        });
+
+        // Copy Paste Modal Logic
+        const emergencyBtn = document.getElementById('emergency-btn');
+        const emergencyModal = document.getElementById('emergency-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalOverlay = document.querySelector('.modal-overlay');
+
+        if (emergencyBtn && emergencyModal) {
+            emergencyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                emergencyModal.style.display = 'flex';
+                setTimeout(() => emergencyModal.classList.add('active'), 10);
+            });
+
+            const hideModal = () => {
+                emergencyModal.classList.remove('active');
+                setTimeout(() => emergencyModal.style.display = 'none', 300);
+            };
+
+            closeModal.addEventListener('click', hideModal);
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+        }
+    </script>
+    <script>
+        const footer = document.getElementById('main-footer');
+        footer.innerHTML = `
+            <div style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
+                <p>Cybershield &copy; 2026. Privacy-First & Community Driven.</p>
+                <p>Trusted Sources: <a href="https://www.ic3.gov/" target="_blank" style="color: var(--accent-primary);">FBI IC3</a> | <a href="https://cybercrime.gov.in/" target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a href="https://www.ncsc.gov.uk/" target="_blank" style="color: var(--accent-primary);">NCSC</a></p>
+            </div>
+         `;
+    </script>
+</body>
+
+</html>

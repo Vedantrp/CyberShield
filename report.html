@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybershield - Report</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <main>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="scanner.html">AI Scanner</a>
+                <a href="dashboard.html">Threat Dashboard</a>
+                <a href="verification.html">Deepfake Check</a>
+                <a href="learn.html">News</a>
+                <a href="alerts.html">Alerts</a>
+                <a href="report.html" class="active">Report</a>
+                <a href="#" id="emergency-btn" class="emergency-nav-btn">PANIC BUTTON</a>
+            </nav>
+            <h1>Report a Scam</h1>
+            <section class="content" id="report-container">
+                <form id="report-form">
+                    <div class="form-group">
+                        <label for="scam-type">Scam Type</label>
+                        <select id="scam-type" name="type">
+                            <option value="phishing">Phishing (Fake Link/Site)</option>
+                            <option value="financial">Financial/Bank Fraud</option>
+                            <option value="impersonation">Impersonation/Social Media</option>
+                            <option value="calls">Spam Calls/SMS</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Incident Description</label>
+                        <textarea id="description" name="description" rows="5"
+                            placeholder="Describe what happened, what was lost, and how they contacted you..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Suspect Identifier (Phone/Email/UPI/URL)</label>
+                        <input type="text" id="contact" name="contact"
+                            placeholder="+1234567890, example@gmail.com, or https://...">
+                    </div>
+                    <div class="form-group">
+                        <label for="evidence">Upload Evidence (Screenshots/PDFs)</label>
+                        <input type="file" id="evidence" name="evidence" accept="image/*,.pdf" multiple>
+                        <small style="color: var(--text-secondary);">Upload screenshots of the chat, transaction, or
+                            email. Max 5MB.</small>
+                    </div>
+                    <button type="submit">Analyze & Generate Report</button>
+                </form>
+            </section>
+
+            <!-- Post-Submission Case File (Hidden by default) -->
+            <section class="content" id="case-file" style="display: none;">
+                <div class="case-header">
+                    <div class="case-id">CASE ID: <span id="case-ref">Loading...</span></div>
+                    <div class="case-status status-active">● EVIDENCE SECURED</div>
+                </div>
+
+                <div class="dashboard-stats" style="margin-bottom: 2rem;">
+                    <div class="stat-card" style="padding: 1rem;">
+                        <div>
+                            <div class="stat-label">Risk Assessment</div>
+                            <div class="stat-value" id="case-risk" style="font-size: 1.5rem;">CRITICAL</div>
+                        </div>
+                    </div>
+                    <div class="stat-card" style="padding: 1rem;">
+                        <div>
+                            <div class="stat-label">Community Reports</div>
+                            <div class="stat-value" id="case-reports" style="font-size: 1.5rem;">124+</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badge Reward Container -->
+                <div id="badge-container"
+                    style="text-align: center; margin-bottom: 2rem; display: none; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                    <div style="font-size: 4rem;">🛡️</div>
+                    <h3 style="color: var(--accent-secondary); margin: 0.5rem 0;">Vigilant Citizen Badge Earned!</h3>
+                    <p>You've helped protect 1,000+ community members.</p>
+                </div>
+
+                <div class="analysis-box">
+                    <strong>Intelligence Systems Analysis:</strong>
+                    <p id="case-analysis">...</p>
+                </div>
+
+                <div class="action-grid" style="display: grid; gap: 1rem; margin-top: 2rem;">
+                    <h3>Authority Escalation Channels</h3>
+                    <p>Your report has been structured for immediate submission. Select the appropriate channel:</p>
+
+                    <div class="feature-card" style="text-align: left; padding: 1.5rem;">
+                        <h4>📜 1. Download Official Case PDF</h4>
+                        <p>Pre-filled standardized report for Law Enforcement & Banks.</p>
+                        <button id="open-draft-btn" class="btn btn-primary" style="margin-top: 1rem;">📝 Review &
+                            Auto-Fill Form</button>
+                    </div>
+
+                    <div class="feature-card" style="text-align: left; padding: 1.5rem;" id="channel-bank">
+                        <h4>🏦 2. Financial Fraud Escalation</h4>
+                        <p>Priority channel for undoing transactions.</p>
+                        <a href="tel:1930" class="btn btn-secondary">Call 1930 (Helpline)</a>
+                    </div>
+
+                    <div class="feature-card" style="text-align: left; padding: 1.5rem;" id="channel-cyber">
+                        <h4>👮 3. Cybercrime Portal</h4>
+                        <p>File official legal complaint with Government.</p>
+                        <a href="https://cybercrime.gov.in" target="_blank" class="btn btn-secondary">Open Portal</a>
+                    </div>
+                </div>
+            </section>
+
+            <footer id="main-footer">
+                <div
+                    style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
+                    <p>Cybershield &copy; 2026. Privacy-First & Community Driven.</p>
+                    <p>Trusted Sources: <a href="https://www.ic3.gov/" target="_blank"
+                            style="color: var(--accent-primary);">FBI IC3</a> | <a href="https://cybercrime.gov.in/"
+                            target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a
+                            href="https://www.ncsc.gov.uk/" target="_blank"
+                            style="color: var(--accent-primary);">NCSC</a></p>
+                </div>
+            </footer>
+
+            <!-- Panic Modal Upgrade -->
+            <div class="modal-overlay" id="emergency-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>🚨 PANIC MODE: IMMEDIATE ACTION</h2>
+                        <button class="close-modal">&times;</button>
+                    </div>
+                    <div class="emergency-grid">
+                        <div class="emergency-step">
+                            <div class="step-icon">🛑</div>
+                            <div class="step-content">
+                                <h3>1. FREEZE ACCOUNTS</h3>
+                                <p>Open your banking app NOW and lock/freeze all cards and accounts immediately.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="emergency-step">
+                            <div class="step-icon">📶</div>
+                            <div class="step-content">
+                                <h3>2. DISCONNECT DEVICE</h3>
+                                <p>Turn off Wi-Fi and Mobile Data to stop any active malware communications.</p>
+                            </div>
+                        </div>
+
+                        <div class="emergency-step">
+                            <div class="step-icon">📞</div>
+                            <div class="step-content">
+                                <h3>3. CALL AUTHORITIES</h3>
+                                <p>Dial <strong>1930</strong> (India) or <strong>IC3</strong> immediately.</p>
+                                <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
+                            </div>
+                        </div>
+
+                        <div class="emergency-step">
+                            <div class="step-icon">🔒</div>
+                            <div class="step-content">
+                                <h3>4. SECURE CREDENTIALS</h3>
+                                <p>Change your critical passwords from a *different* device (e.g., friend's
+                                    phone).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Complaint Review Modal -->
+            <div class="modal-overlay" id="review-modal">
+                <div class="modal-content" style="max-width: 800px;">
+                    <div class="modal-header">
+                        <h2>📝 Official Complaint Preview</h2>
+                        <button class="close-modal" id="close-review">&times;</button>
+                    </div>
+                    <p>Review the pre-filled legal complaint below. Edit specific details if necessary.</p>
+
+                    <div id="complaint-draft-view" class="draft-container" contenteditable="false">
+                        <!-- Dynamic Content Loaded Here -->
+                    </div>
+
+                    <div class="draft-actions">
+                        <button class="btn btn-secondary" id="copy-draft-btn">📋 Copy to Clipboard</button>
+                        <button class="btn btn-primary" id="finalize-pdf-btn">⬇ Subscribe & Sign PDF</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <script>
+            // Emergency Modal Logic
+            const emergencyBtn = document.getElementById('emergency-btn');
+            const emergencyModal = document.getElementById('emergency-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const modalOverlay = document.querySelector('.modal-overlay');
+
+            if (emergencyBtn && emergencyModal) {
+                emergencyBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    emergencyModal.style.display = 'flex';
+                    setTimeout(() => emergencyModal.classList.add('active'), 10);
+                });
+
+                const hideEmergencyModal = () => {
+                    emergencyModal.classList.remove('active');
+                    setTimeout(() => emergencyModal.style.display = 'none', 300);
+                };
+
+                // Use specific selector for emergency close button
+                emergencyModal.querySelector('.close-modal').addEventListener('click', hideEmergencyModal);
+
+                emergencyModal.addEventListener('click', (e) => {
+                    if (e.target === emergencyModal) {
+                        hideEmergencyModal();
+                    }
+                });
+            }
+
+            // Review Modal Logic
+            const reviewModal = document.getElementById('review-modal');
+            const closeReview = document.getElementById('close-review');
+            if (closeReview && reviewModal) {
+                closeReview.addEventListener('click', () => {
+                    reviewModal.classList.remove('active');
+                    setTimeout(() => reviewModal.style.display = 'none', 300);
+                });
+            }
+        </script>
+        <script type="module" src="js/report.js"></script>
+</body>
+
+</html>

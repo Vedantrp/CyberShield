@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Intelligence Dashboard - Cybershield</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <main>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html" style="color: var(--accent-primary);">Threat Dashboard</a>
+            <a href="learn.html">News</a>
+            <a href="alerts.html">Alerts</a>
+            <a href="report.html">Report</a>
+            <a href="#" id="emergency-btn" class="emergency-nav-btn">EMERGENCY ACTION</a>
+        </nav>
+
+        <section class="hero" style="padding: 3rem 1rem;">
+            <h1>Global Threat Intelligence</h1>
+            <p>Real-time tracking of emerging cyber threats and digital scams.</p>
+        </section>
+
+        <!-- Threat Map Placeholder -->
+        <div class="world-map-placeholder">
+            <div style="text-align: center;">
+                <div style="font-size: 4rem; opacity: 0.5;">🌍</div>
+                <h3>Live Threat Map</h3>
+                <p>Visualizing 1,204 active nodes...</p>
+            </div>
+        </div>
+
+        <!-- Live Stats -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon" style="font-size: 2rem;">🛡️</div>
+                <div>
+                    <div class="stat-value" id="stats-blocked">14,203</div>
+                    <div class="stat-label">Scams Blocked Today</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="font-size: 2rem;">🔥</div>
+                <div>
+                    <div class="stat-value" id="stats-active" style="color: #ff4d4d;">42</div>
+                    <div class="stat-label">Critical Active Threats</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="font-size: 2rem;">👥</div>
+                <div>
+                    <div class="stat-value" id="stats-reports">856</div>
+                    <div class="stat-label">Community Reports</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="font-size: 2rem;">⚡</div>
+                <div>
+                    <div class="stat-value" id="stats-speed">98%</div>
+                    <div class="stat-label">Neutralization Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Intelligence -->
+        <section>
+            <h2>Latest Intelligence Feeds</h2>
+            <div class="scam-grid" id="intelligence-feed">
+                <!-- Priority Data populated by threat intelligence -->
+                <div class="scam-card" style="border-left: 4px solid #ff4d4d;">
+                    <span class="risk-badge risk-high">Critical Threat</span>
+                    <h3>AI Job Scams & Identity Theft</h3>
+                    <p>Fake remote job offers requiring "Security Deposits" or identity documents. Scammers use AI to
+                        generate professional-looking listings.</p>
+                    <div class="scam-tags">
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#JobScam</span>
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#IdentityTheft</span>
+                    </div>
+                </div>
+
+                <div class="scam-card" style="border-left: 4px solid #ff4d4d;">
+                    <span class="risk-badge risk-high">High Risk</span>
+                    <h3>UPI & "Risk Indicator" Fraud</h3>
+                    <p>Scammers claim your account has a "Risk Indicator" and trick you into approving payment requests
+                        to "verify" it.</p>
+                    <div class="scam-tags">
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#UPI</span>
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#PaymentFraud</span>
+                    </div>
+                </div>
+
+                <div class="scam-card" style="border-left: 4px solid #ffaa00;">
+                    <span class="risk-badge risk-medium">Deepfake Alert</span>
+                    <h3>Celebrity Crypto Scams</h3>
+                    <p>Deepfake videos of executives (e.g., Nvidia, Apple) promoting fake "Get Rich Quick" crypto
+                        schemes on social media.</p>
+                    <div class="scam-tags">
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#Deepfake</span>
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#Crypto</span>
+                    </div>
+                </div>
+
+                <div class="scam-card" style="border-left: 4px solid #ffaa00;">
+                    <span class="risk-badge risk-medium">Trend Watch</span>
+                    <h3>Service Supply Chain Attacks</h3>
+                    <p>Phishing campaigns targeting delivery services (Amazon, DoorDash) and travel cancellations to
+                        steal credentials.</p>
+                    <div class="scam-tags">
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#Phishing</span>
+                        <span class="scam-tag" style="background: rgba(255,255,255,0.1);">#Logistics</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Modal -->
+        <div class="modal-overlay" id="emergency-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🚨 PANIC MODE: IMMEDIATE ACTION</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="emergency-grid">
+                    <div class="emergency-step">
+                        <div class="step-icon">🛑</div>
+                        <div class="step-content">
+                            <h3>1. FREEZE ACCOUNTS</h3>
+                            <p>Open your banking app NOW and lock/freeze all cards and accounts immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📶</div>
+                        <div class="step-content">
+                            <h3>2. DISCONNECT DEVICE</h3>
+                            <p>Turn off Wi-Fi and Mobile Data to stop any active malware communications.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📞</div>
+                        <div class="step-content">
+                            <h3>3. CALL AUTHORITIES</h3>
+                            <p>Dial <strong>1930</strong> (India) or <strong>IC3</strong> immediately.</p>
+                            <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">🔒</div>
+                        <div class="step-content">
+                            <h3>4. SECURE CREDENTIALS</h3>
+                            <p>Change your critical passwords from a *different* device (e.g., friend's phone).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>We never ask for OTP, Passwords or money.</footer>
+    </main>
+
+    <script type="module">
+        // Basic counter animation for "Showiness"
+        function animateCounter(id, target) {
+            let current = 0;
+            const element = document.getElementById(id);
+            if (!element) return;
+            // Parse target if it has commas/symbols
+            const numTarget = parseInt(target.replace(/[^0-9]/g, ''));
+            const suffix = target.replace(/[0-9,]/g, ''); // Store %, etc.
+
+            const step = Math.ceil(numTarget / 100);
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= numTarget) {
+                    current = numTarget;
+                    clearInterval(timer);
+                }
+                element.innerText = current.toLocaleString() + suffix;
+            }, 20);
+        }
+
+        window.addEventListener('load', () => {
+            animateCounter('stats-blocked', '14203');
+            animateCounter('stats-active', '42');
+            animateCounter('stats-reports', '856');
+        });
+
+        // Reuse Emergency Modal Logic
+        const emergencyBtn = document.getElementById('emergency-btn');
+        const emergencyModal = document.getElementById('emergency-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalOverlay = document.querySelector('.modal-overlay');
+
+        if (emergencyBtn && emergencyModal) {
+            emergencyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                emergencyModal.style.display = 'flex';
+                // Slight delay to allow display flex to apply before opacity transition
+                setTimeout(() => emergencyModal.classList.add('active'), 10);
+            });
+
+            const hideModal = () => {
+                emergencyModal.classList.remove('active');
+                setTimeout(() => emergencyModal.style.display = 'none', 300);
+            };
+
+            closeModal.addEventListener('click', hideModal);
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

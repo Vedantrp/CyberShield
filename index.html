@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybershield</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <main>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Threat Dashboard</a>
+            <a href="learn.html">News</a>
+            <a href="alerts.html">Alerts</a>
+            <a href="report.html">Report</a>
+            <a href="#" id="emergency-btn" class="emergency-nav-btn">EMERGENCY ACTION</a>
+        </nav>
+        <section class="hero">
+            <h1>Cybershield</h1>
+            <p>Your ultimate defense against digital deception. Stay informed, report scams, and protect yourself in
+                real-time.</p>
+            <div class="cta-buttons">
+                <a href="learn.html" class="btn btn-primary">Learn Protection</a>
+                <a href="report.html" class="btn btn-secondary">Report a Scam</a>
+            </div>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Stay Protected</h3>
+                <p>Learn about the latest cyber threats and how to defend yourself properly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚨</div>
+                <h3>Real-time Alerts</h3>
+                <p>Get instant updates on emerging scam trends reported by the community.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Report Scams</h3>
+                <p>Help others stay safe by reporting suspicious activities you encounter.</p>
+            </div>
+        </section>
+
+        <!-- Zero Trust Tip -->
+        <div
+            style="background: rgba(0, 243, 255, 0.05); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border: 1px dashed var(--accent-primary); text-align: center;">
+            <h3 style="color: var(--accent-primary);">👁️ Zero-Trust Policy</h3>
+            <p>"Seeing is no longer believing." Always verify new contacts via a secondary channel (e.g., call them back
+                via a saved number).</p>
+        </div>
+
+        <footer id="main-footer">
+            <div
+                style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
+                <p>Cybershield &copy; 2026. Privacy-First & Community Driven.</p>
+                <p>Trusted Sources: <a href="https://www.ic3.gov/" target="_blank"
+                        style="color: var(--accent-primary);">FBI IC3</a> | <a href="https://cybercrime.gov.in/"
+                        target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a
+                        href="https://www.ncsc.gov.uk/" target="_blank" style="color: var(--accent-primary);">NCSC</a>
+                </p>
+            </div>
+        </footer>
+
+        <!-- Panic Modal Upgrade -->
+        <div class="modal-overlay" id="emergency-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🚨 PANIC MODE: IMMEDIATE ACTION</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="emergency-grid">
+                    <div class="emergency-step">
+                        <div class="step-icon">🛑</div>
+                        <div class="step-content">
+                            <h3>1. FREEZE ACCOUNTS</h3>
+                            <p>Open your banking app NOW and lock/freeze all cards and accounts immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">📶</div>
+                        <div class="step-content">
+                            <h3>2. DISCONNECT DEVICE</h3>
+                            <p>Turn off Wi-Fi and Mobile Data to stop any active malware communications.</p>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">�</div>
+                        <div class="step-content">
+                            <h3>3. CALL AUTHORITIES</h3>
+                            <p>Dial <strong>1930</strong> (India) or <strong>IC3</strong> immediately.</p>
+                            <a href="tel:1930" class="emergency-btn-action">Call 1930 (Helpline)</a>
+                        </div>
+                    </div>
+
+                    <div class="emergency-step">
+                        <div class="step-icon">�</div>
+                        <div class="step-content">
+                            <h3>4. SECURE CREDENTIALS</h3>
+                            <p>Change your critical passwords from a *different* device (e.g., friend's phone).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script type="module">
+    import { activeShield } from './js/monitor.js';
+
+    if ("Notification" in window && Notification.permission !== "granted") {
+        document.addEventListener('click', () => {
+            Notification.requestPermission();
+        }, { once: true });
+    }
+
+    // Start Active Shield Protection
+    // activeShield.start(); // Auto-start disabled per user request (starts after report)
+
+    // Register Service Worker for Caching
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker Registered!', reg.scope))
+                .catch(err => console.error('Service Worker Registration Failed:', err));
+        });
+    }
+
+    // Emergency Modal Logic
+    const emergencyBtn = document.getElementById('emergency-btn');
+    const emergencyModal = document.getElementById('emergency-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const modalOverlay = document.querySelector('.modal-overlay');
+
+    if (emergencyBtn && emergencyModal) {
+        emergencyBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            emergencyModal.style.display = 'flex';
+            // Slight delay to allow display flex to apply before opacity transition
+            setTimeout(() => emergencyModal.classList.add('active'), 10);
+        });
+
+        const hideModal = () => {
+            emergencyModal.classList.remove('active');
+            setTimeout(() => emergencyModal.style.display = 'none', 300);
+        };
+
+        closeModal.addEventListener('click', hideModal);
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                hideModal();
+            }
+        });
+    }
+</script>
+
+</html>
