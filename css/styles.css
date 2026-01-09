@@ -843,7 +843,10 @@ footer {
     }
 
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 1.8rem;
+        /* Smaller to fit narrow screens */
+        overflow-wrap: break-word;
+        line-height: 1.2;
     }
 
     .hero p {
