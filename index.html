@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybershield</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -46,7 +47,7 @@
             </div>
         </section>
 
-        <!-- Zero Trust Tip -->
+   
         <div
             style="background: rgba(0, 243, 255, 0.05); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border: 1px dashed var(--accent-primary); text-align: center;">
             <h3 style="color: var(--accent-primary);">👁️ Zero-Trust Policy</h3>
@@ -66,7 +67,7 @@
             </div>
         </footer>
 
-        <!-- Panic Modal Upgrade -->
+     
         <div class="modal-overlay" id="emergency-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -120,10 +121,6 @@
         }, { once: true });
     }
 
-    // Start Active Shield Protection
-    // activeShield.start(); // Auto-start disabled per user request (starts after report)
-
-    // Register Service Worker for Caching
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
@@ -142,7 +139,7 @@
         emergencyBtn.addEventListener('click', (e) => {
             e.preventDefault();
             emergencyModal.style.display = 'flex';
-            // Slight delay to allow display flex to apply before opacity transition
+           
             setTimeout(() => emergencyModal.classList.add('active'), 10);
         });
 
