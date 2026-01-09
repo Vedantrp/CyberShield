@@ -1,0 +1,21 @@
+{
+    "name": "Cybershield - Anti-Scam Protection",
+    "short_name": "Cybershield",
+    "description": "Real-time tracking of emerging cyber threats and digital scams.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0a0b1e",
+    "theme_color": "#00f3ff",
+    "icons": [
+        {
+            "src": "https://cdn-icons-png.flaticon.com/512/2092/2092663.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://cdn-icons-png.flaticon.com/512/2092/2092663.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
