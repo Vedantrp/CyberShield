@@ -47,7 +47,7 @@
             </div>
         </section>
 
-   
+        <!-- Zero Trust Tip -->
         <div
             style="background: rgba(0, 243, 255, 0.05); padding: 1.5rem; border-radius: 12px; margin: 2rem 0; border: 1px dashed var(--accent-primary); text-align: center;">
             <h3 style="color: var(--accent-primary);">👁️ Zero-Trust Policy</h3>
@@ -64,10 +64,13 @@
                         target="_blank" style="color: var(--accent-primary);">Helpline 1930</a> | <a
                         href="https://www.ncsc.gov.uk/" target="_blank" style="color: var(--accent-primary);">NCSC</a>
                 </p>
+                <button id="manual-install-btn"
+                    style="background:none; border:none; color: var(--text-secondary); text-decoration: underline; cursor: pointer; display: none;">📱
+                    Install App</button>
             </div>
         </footer>
 
-     
+        <!-- Panic Modal Upgrade -->
         <div class="modal-overlay" id="emergency-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,14 +124,11 @@
         }, { once: true });
     }
 
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker Registered!', reg.scope))
-                .catch(err => console.error('Service Worker Registration Failed:', err));
-        });
-    }
-
+    // Start Active Shield Protection
+    // activeShield.start(); // Auto-start disabled per user request (starts after report)
+</script>
+<script type="module" src="js/pwa.js"></script>
+<script>
     // Emergency Modal Logic
     const emergencyBtn = document.getElementById('emergency-btn');
     const emergencyModal = document.getElementById('emergency-modal');
@@ -139,7 +139,7 @@
         emergencyBtn.addEventListener('click', (e) => {
             e.preventDefault();
             emergencyModal.style.display = 'flex';
-           
+            // Slight delay to allow display flex to apply before opacity transition
             setTimeout(() => emergencyModal.classList.add('active'), 10);
         });
 
