@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybershield - AI Scam Detector</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
     <style>
         .scanner-container {
             max-width: 800px;
@@ -152,7 +153,6 @@
 
         <footer id="main-footer"></footer>
 
-        <!-- Emergency Modal is dynamically injected by common script or manually added -->
         <div class="modal-overlay" id="emergency-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -211,7 +211,6 @@
         const recommendation = document.getElementById('recommendation');
         const scoreDisplay = document.getElementById('risk-score');
 
-        // Auto-Load saved text
         window.addEventListener('load', () => {
             const savedText = localStorage.getItem('scannedText');
             if (savedText) {
@@ -219,7 +218,6 @@
             }
         });
 
-        // Auto-Save text on input
         input.addEventListener('input', () => {
             localStorage.setItem('scannedText', input.value);
         });
@@ -232,10 +230,8 @@
 
             resultContainer.style.display = 'block';
 
-            // Clear previous
             patternList.innerHTML = '';
 
-            // Update Gauge
             let percentage = 0;
             let color = '#00ff00';
 
@@ -256,7 +252,6 @@
                 riskTitle.style.color = "#00ff00";
             }
 
-            // Animate bar
             setTimeout(() => {
                 riskBar.style.width = percentage + '%';
                 riskBar.style.backgroundColor = color;
@@ -264,7 +259,6 @@
 
             scoreDisplay.textContent = `Risk Score: ${analysis.score}`;
 
-            // Patterns
             analysis.matches.forEach(m => {
                 const tag = document.createElement('span');
                 tag.className = 'match-tag';
@@ -279,7 +273,6 @@
 
             explanation.textContent = analysis.explanation;
 
-            // Recommendation
             if (analysis.risk !== 'LOW') {
                 recommendation.innerHTML = `
                     <div style="background: rgba(255,0,0,0.1); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,0,0,0.3);">
@@ -296,7 +289,6 @@
             }
         });
 
-        // Emergency Modal Logic (Copy-paste standard)
         const emergencyBtn = document.getElementById('emergency-btn');
         const emergencyModal = document.getElementById('emergency-modal');
         const closeModal = document.querySelector('.close-modal');
@@ -324,9 +316,9 @@
         }
 
     </script>
-    <script src="js/common-footer.js"></script> <!-- Placeholder if we used components -->
+    <script src="js/common-footer.js"></script> 
     <script>
-        // Simple footer injection for now
+      
         const footer = document.getElementById('main-footer');
         footer.innerHTML = `
             <div style="text-align:center; padding: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary);">
