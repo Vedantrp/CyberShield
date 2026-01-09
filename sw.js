@@ -15,7 +15,9 @@ const ASSETS = [
     "./js/monitor.js",
     "./js/learn.js",
     "./js/alerts.js",
-    "./js/pwa.js"
+    "./js/pwa.js",
+    "./manifest.json",
+    "https://cdn-icons-png.flaticon.com/512/2092/2092663.png"
 ];
 
 self.addEventListener("install", event => {
