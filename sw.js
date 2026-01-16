@@ -6,7 +6,7 @@ const ASSETS = [
     "./learn.html",
     "./report.html",
     "./alerts.html",
-    "./css/styles.css",
+    "./css/styles.css", 
     "./css/skeleton.css",
     "./js/firebase-config.js",
     "./js/data.js",
@@ -81,3 +81,4 @@ self.addEventListener('sync', event => {
         console.log("Background Sync triggered: sync-reports");
     }
 });
+
