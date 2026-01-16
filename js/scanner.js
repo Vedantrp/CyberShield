@@ -1,112 +1,137 @@
-// Enhanced Scam Keywords with weights and categories
+// ===============================
+// Enhanced Scam Signature Engine
+// ===============================
+
 export const SCAM_SIGNATURES = {
-    "Financial Urgency": { keywords: ["urgent", "immediately", "suspended", "verify account", "unauthorized", "act now", "action required", "risk indicator"], weight: 0.95 },
-    "Job Scam": { keywords: ["hiring", "work from home", "easy money", "no experience", "recruit", "daily payment", "part time", "security deposit"], weight: 0.8 },
-    "Phishing": { keywords: ["password", "login link", "verify identity", "bank details", "update your", "kyc", "pan card"], weight: 0.85 },
-    "Prize/Lottery": { keywords: ["winner", "lottery", "prize", "jackpot", "claim your", "lucky draw"], weight: 0.7 },
-    "Crypto/Investment": { keywords: ["bitcoin", "crypto", "double your", "investment", "guaranteed return", "nvidia", "apple", "get rich"], weight: 0.9 },
-    "Supply Chain/Logistics": { keywords: ["delivery attempt", "package pending", "customs fee", "warehouse", "delivery failed", "address incomplete"], weight: 0.75 },
-    "Deepfake/Impersonation": { keywords: ["voice note", "video call", "emergency help", "hospital", "jail", "accident"], weight: 0.85 }
+    "Financial Urgency": {
+        keywords: ["urgent", "immediately", "suspended", "verify account", "unauthorized", "act now", "action required"],
+        weight: 0.9
+    },
+    "Job Scam": {
+        keywords: ["hiring", "work from home", "easy money", "no experience", "daily payment", "security deposit"],
+        weight: 0.8
+    },
+    "Phishing": {
+        keywords: ["password", "login link", "verify identity", "bank details", "kyc", "pan card"],
+        weight: 0.85
+    },
+    "Prize / Lottery": {
+        keywords: ["winner", "lottery", "prize", "jackpot", "claim your"],
+        weight: 0.7
+    },
+    "Crypto / Investment": {
+        keywords: ["bitcoin", "crypto", "investment", "guaranteed return", "double your", "get rich"],
+        weight: 0.9
+    },
+    "Logistics Scam": {
+        keywords: ["delivery failed", "package pending", "customs fee", "address incomplete"],
+        weight: 0.75
+    },
+    "Deepfake / Impersonation": {
+        keywords: ["voice note", "video call", "emergency help", "hospital", "accident"],
+        weight: 0.85
+    }
 };
+
+// ===============================
+// Core Analysis Function
+// ===============================
 
 export function analyzeScam(text) {
     const lower = text.toLowerCase();
-    const matches = [];
     let totalScore = 0;
-    const signaturesDetected = new Set();
+    const matches = [];
+    const detectedCategories = new Set();
 
-    // 1. Keyword Analysis
-    for (const [type, data] of Object.entries(SCAM_SIGNATURES)) {
-        data.keywords.forEach(word => {
-            if (lower.includes(word)) {
-                matches.push({ word, type, weight: data.weight });
+    // 1️⃣ Keyword-based detection (one hit per category)
+    for (const [category, data] of Object.entries(SCAM_SIGNATURES)) {
+        for (const keyword of data.keywords) {
+            if (lower.includes(keyword)) {
+                detectedCategories.add(category);
                 totalScore += data.weight;
-                signaturesDetected.add(type);
+                matches.push({ keyword, category, weight: data.weight });
+                break; // prevent score inflation per category
             }
-        });
+        }
     }
 
-    // 2. Tone/Urgency Analysis (Simple Heuristic: ALL CAPS, Exclamation Marks)
-    const upperCaseCount = (text.match(/[A-Z]/g) || []).length;
-    const totalChars = text.length; // Avoid div/0
-    const upperCaseRatio = totalChars > 0 ? upperCaseCount / totalChars : 0;
+    // 2️⃣ Urgency / Tone Heuristics
+    const upperRatio = (text.match(/[A-Z]/g) || []).length / Math.max(text.length, 1);
 
-    if (upperCaseRatio > 0.4 && totalChars > 10) {
-        totalScore += 0.5;
-        matches.push({ word: "EXCESSIVE CAPS", type: "Aggressive Tone", weight: 0.5 });
+    if (upperRatio > 0.4 && text.length > 12) {
+        totalScore += 0.4;
+        matches.push({ keyword: "EXCESSIVE CAPS", category: "Aggressive Tone", weight: 0.4 });
     }
 
-    if ((text.match(/!{2,}/g) || []).length > 0) {
+    if (/!{2,}/.test(text)) {
         totalScore += 0.3;
-        matches.push({ word: "!!", type: "Artificial Urgency", weight: 0.3 });
+        matches.push({ keyword: "!!", category: "Artificial Urgency", weight: 0.3 });
     }
 
-    // Normalized logic for risk
+    // 3️⃣ Risk Classification
     let risk = "LOW";
-    // Adjusted thresholds for stricter detection
     if (totalScore >= 1.2) risk = "HIGH";
-    else if (totalScore >= 0.5) risk = "MEDIUM";
+    else if (totalScore >= 0.6) risk = "MEDIUM";
+
+    // 4️⃣ Safety fallback
+    if (detectedCategories.size === 0 && totalScore > 0) {
+        detectedCategories.add("Suspicious Behavior");
+    }
 
     return {
         risk,
-        score: Math.min(totalScore * 10, 100).toFixed(0), // Scale to 0-100 roughly
-        categories: Array.from(signaturesDetected),
-        matches: matches,
+        score: Math.min(Math.round(totalScore * 100), 100),
+        categories: Array.from(detectedCategories),
+        matches,
         explanation: generateExplanation(matches, risk)
     };
 }
 
-function generateExplanation(matches, risk) {
-    if (matches.length === 0) return "No specific scam patterns detected, but always stay vigilant.";
+// ===============================
+// Explainable AI Output
+// ===============================
 
-    const topFactors = matches.map(m => `"${m.word}" (${m.type})`).join(", ");
-    return `Flagged as ${risk} Risk due to detection of: ${topFactors}. These patterns are commonly associated with fraud.`;
+function generateExplanation(matches, risk) {
+    if (matches.length === 0) {
+        return "No explicit scam indicators were detected, but users are advised to remain cautious.";
+    }
+
+    const reasons = matches
+        .map(m => `"${m.keyword}" (${m.category})`)
+        .join(", ");
+
+    return `Classified as ${risk} risk due to detected indicators: ${reasons}. These patterns are commonly associated with fraudulent activity.`;
 }
 
-// Pattern Correlation Engine
+// ===============================
+// Community Correlation Engine
+// ===============================
+
 export class CorrelationEngine {
-    static analyzePatterns(reports) {
-        if (!reports || reports.length === 0) return null;
+    static analyzePatterns(reports = []) {
+        if (reports.length === 0) return null;
 
-        const clusters = {};
-        let trendingType = null;
-        let maxCount = 0;
+        const countByType = {};
+        let dominantType = null;
+        let max = 0;
 
-        // Correlate by Scam Type and specific keywords
         reports.forEach(r => {
-            // Count types
-            clusters[r.type] = (clusters[r.type] || 0) + 1;
-            if (clusters[r.type] > maxCount) {
-                maxCount = clusters[r.type];
-                trendingType = r.type;
+            countByType[r.type] = (countByType[r.type] || 0) + 1;
+            if (countByType[r.type] > max) {
+                max = countByType[r.type];
+                dominantType = r.type;
             }
         });
 
-        // Time-based correlation (High density of reports in last 24h)
-        const recentReports = reports.filter(r => {
-            const timeDiff = Date.now() - new Date(r.timestamp).getTime();
-            return timeDiff < 24 * 60 * 60 * 1000;
-        });
+        const recentReports = reports.filter(r =>
+            Date.now() - new Date(r.timestamp).getTime() < 24 * 60 * 60 * 1000
+        );
 
         return {
             totalReports: reports.length,
-            trendingScam: trendingType,
-            recentSpike: recentReports.length > 5, // Alert if >5 reports in 24h
-            insights: `Trend Alert: ${trendingType} is the most reported threat (${maxCount} reports).`
+            trendingScam: dominantType,
+            recentSpike: recentReports.length >= 5,
+            insights: `High activity detected for ${dominantType} scams (${max} reports).`
         };
     }
-}
-
-// Wrapper for backward compatibility if needed, though we should update calls
-export function detectScamTypes(text) {
-    const analysis = analyzeScam(text);
-    return analysis.categories;
-}
-
-export function calculateRiskLevel(types) {
-    // This is now redundant but kept for any legacy calls not yet updated
-    // The analyzeScam function handles risk calculation better
-    if (types.length >= 3) return "HIGH";
-    if (types.length >= 1) return "MEDIUM";
-    return "LOW";
 }
