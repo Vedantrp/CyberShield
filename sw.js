@@ -1,4 +1,4 @@
-const CACHE_NAME = "cybershield-cache-v3"; // Bump version to force update
+const CACHE_NAME = "cybershield-cache-v4"; // Bump version to force update
 const ASSETS = [
     "./",
     "./index.html",
@@ -65,8 +65,9 @@ self.addEventListener("fetch", event => {
     event.respondWith(
         caches.match(event.request).then(cachedResponse => {
             const fetchPromise = fetch(event.request).then(networkResponse => {
+                const responseToCache = networkResponse.clone(); // Clone immediately
                 caches.open(CACHE_NAME).then(cache => {
-                    cache.put(event.request, networkResponse.clone());
+                    cache.put(event.request, responseToCache);
                 });
                 return networkResponse;
             });
