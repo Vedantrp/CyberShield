@@ -14,6 +14,7 @@ export class ActiveShield {
         if (localStorage.getItem("shieldActive") === "true") {
             this.initUI();
             this.scanLoop();
+            this.requestPermissions();
         }
 
         // Handle Background/Foreground transitions
@@ -66,6 +67,19 @@ export class ActiveShield {
         document.body.appendChild(div);
 
         document.getElementById("stop-shield").addEventListener("click", () => this.stop());
+
+        // Add Permission Button if needed
+        if ("Notification" in window && Notification.permission === "default") {
+            const btn = document.createElement("button");
+            btn.innerText = "🔔 Enable Alerts";
+            btn.style.cssText = "width:100%; margin-top:5px; background:var(--accent-primary); border:none; border-radius:4px; cursor:pointer;";
+            btn.addEventListener("click", () => {
+                Notification.requestPermission().then(p => {
+                    if (p === 'granted') btn.remove();
+                });
+            });
+            div.appendChild(btn);
+        }
     }
 
     notifyBackgroundProtection() {
